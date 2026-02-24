@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Peer from 'peerjs';
 
 const SERVER = import.meta.env.VITE_SERVER_URL;
-const url = new URL(SERVER_URL);
+
 
 export function usePeer({ roomId, socket, onPhotoReceived, onRetake }) {
   const peerRef = useRef(null);
@@ -20,10 +20,10 @@ export function usePeer({ roomId, socket, onPhotoReceived, onRetake }) {
 
 
       const peer = new Peer({
-        host: url.hostname,
-        port: url.port ? Number(url.port) : 443,
+        host: new URL(SERVER).hostname,
+        port: new URL(SERVER).port || (location.protocol === 'https:' ? 443 : 80),
         path: '/peerjs',
-        secure: url.protocol === 'https:',
+        secure: location.protocol === 'https:',
       });
 
       peerRef.current = peer;
