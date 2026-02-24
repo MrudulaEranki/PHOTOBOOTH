@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Peer from 'peerjs';
 
 const SERVER = import.meta.env.VITE_SERVER_URL;
+const url = new URL(SERVER_URL);
 
 export function usePeer({ roomId, socket, onPhotoReceived, onRetake }) {
   const peerRef = useRef(null);
@@ -17,11 +18,12 @@ export function usePeer({ roomId, socket, onPhotoReceived, onRetake }) {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
       localStreamRef.current = stream;
 
+
       const peer = new Peer({
-        host: new URL(SERVER).hostname,
-        port: new URL(SERVER).port || (location.protocol === 'https:' ? 443 : 80),
+        host: url.hostname,
+        port: url.port ? Number(url.port) : 443,
         path: '/peerjs',
-        secure: location.protocol === 'https:',
+        secure: url.protocol === 'https:',
       });
 
       peerRef.current = peer;
