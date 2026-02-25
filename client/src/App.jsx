@@ -11,7 +11,7 @@ export default function App() {
       {/* Header bar — fixed height */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 px-4 sm:px-6 py-3 shrink-0">
         <h1 className="text-white font-bold text-xl sm:text-2xl tracking-widest uppercase mr-auto">
-          ◻ Photobooth
+           Photobooth
         </h1>
         <RoomControls
           onCreate={createRoom}
